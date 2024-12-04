@@ -13,18 +13,25 @@ import { useDoTheThing } from "~/challenges/utils";
 
 export function Welcome() {
   const [inputString, setInputString] = useState("");
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState(0);
   const [part2, setPart2] = useState(false);
   const [year, setYear] = useState(2024);
   const [day, setDay] = useState(1);
+  const [error, setError] = useState<string | null>(null);
 
-  const { doTheThing, doTheThingPart2 } = useDoTheThing(inputString, year, day);
+  const doTheThingResult = useDoTheThing(inputString, year, day);
+  const doTheThing = doTheThingResult?.doTheThing;
+  const doTheThingPart2 = doTheThingResult?.doTheThingPart2;
 
   const handleClick = () => {
-    if (part2) {
+    if (part2 && doTheThingPart2) {
+      setError(null);
       setOutput(doTheThingPart2());
-    } else {
+    } else if (!part2 && doTheThing) {
+      setError(null);
       setOutput(doTheThing());
+    } else {
+      setError("Function not found.");
     }
   };
 
@@ -40,7 +47,7 @@ export function Welcome() {
         <Select
           label="Year"
           value={year}
-          onChange={e => setYear(Number(e.target.value))}
+          onChange={(e) => setYear(Number(e.target.value))}
         >
           <MenuItem value={2023}>2023</MenuItem>
           <MenuItem value={2024} disabled={day > 3}>
@@ -50,7 +57,7 @@ export function Welcome() {
         <Select
           label="Day"
           value={day}
-          onChange={e => setDay(Number(e.target.value))}
+          onChange={(e) => setDay(Number(e.target.value))}
         >
           {Array.from({ length: 24 }, (_, i) => (
             <MenuItem
@@ -71,8 +78,10 @@ export function Welcome() {
         multiline
         rows={10}
         value={inputString}
-        onChange={e => setInputString(e.target.value)}
+        onChange={(e) => setInputString(e.target.value)}
         sx={{ width: "100%" }}
+        error={!!error}
+        helperText={error}
       />
       <Button onClick={handleClick} variant="contained" sx={{ margin: 1 }}>
         Do the thing

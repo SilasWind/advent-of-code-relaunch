@@ -1,21 +1,8 @@
-import React, { useState } from "react";
-import InputComp from "../../inputComp";
-
-export default function DayTwo() {
-  const [part2, setPart2] = useState(false);
-  const [inputString, setInputString] = useState("");
-  const [output, setOutput] = useState(0);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setInputString(e.target.value);
-  };
-
+export default function DayTwo(inputString: string) {
   const doTheThing = () => {
     const formattedInput = inputString.split("\n").map((x) => x.split(" "));
     let result = 0;
-    formattedInput.forEach((report, index) => {
+    formattedInput.forEach((report) => {
       let failed = false;
       let increasing = true;
       for (let i = 0; i < report.length; i++) {
@@ -47,7 +34,7 @@ export default function DayTwo() {
         result++;
       }
     });
-    setOutput(result);
+    return result;
   };
 
   const doTheThingPart2 = () => {
@@ -58,20 +45,9 @@ export default function DayTwo() {
         result++;
       }
     });
-    setOutput(result);
+    return result;
   };
-  return (
-    <InputComp
-      part2={part2}
-      setPart2={setPart2}
-      inputString={inputString}
-      output={output}
-      part1Func={doTheThing}
-      part2Func={doTheThingPart2}
-      handleChange={handleChange}
-      dayNumber={2}
-    />
-  );
+  return { doTheThing, doTheThingPart2 };
 }
 
 function isReportSafe(report: string[], level: number, index: number) {
