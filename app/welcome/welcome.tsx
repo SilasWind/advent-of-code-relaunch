@@ -17,21 +17,14 @@ export function Welcome() {
   const [part2, setPart2] = useState(false);
   const [year, setYear] = useState(2024);
   const [day, setDay] = useState(1);
-  const [error, setError] = useState<string | null>(null);
 
-  const doTheThingResult = useDoTheThing(inputString, year, day);
-  const doTheThing = doTheThingResult?.doTheThing;
-  const doTheThingPart2 = doTheThingResult?.doTheThingPart2;
+  const { doTheThing, doTheThingPart2 } = useDoTheThing(inputString, year, day);
 
   const handleClick = () => {
-    if (part2 && doTheThingPart2) {
-      setError(null);
+    if (part2) {
       setOutput(doTheThingPart2());
-    } else if (!part2 && doTheThing) {
-      setError(null);
-      setOutput(doTheThing());
     } else {
-      setError("Function not found.");
+      setOutput(doTheThing());
     }
   };
 
@@ -50,7 +43,7 @@ export function Welcome() {
           onChange={(e) => setYear(Number(e.target.value))}
         >
           <MenuItem value={2023}>2023</MenuItem>
-          <MenuItem value={2024} disabled={day > 3}>
+          <MenuItem value={2024} disabled={day > 4}>
             2024
           </MenuItem>
         </Select>
@@ -63,7 +56,7 @@ export function Welcome() {
             <MenuItem
               key={i + 1}
               value={i + 1}
-              disabled={(year === 2024 && i > 2) || i > 19}
+              disabled={(year === 2024 && i > 3) || i > 19}
             >
               {i + 1}
             </MenuItem>
@@ -80,8 +73,6 @@ export function Welcome() {
         value={inputString}
         onChange={(e) => setInputString(e.target.value)}
         sx={{ width: "100%" }}
-        error={!!error}
-        helperText={error}
       />
       <Button onClick={handleClick} variant="contained" sx={{ margin: 1 }}>
         Do the thing
