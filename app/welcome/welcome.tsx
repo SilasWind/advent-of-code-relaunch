@@ -40,23 +40,23 @@ export function Welcome() {
         <Select
           label="Year"
           value={year}
-          onChange={(e) => setYear(Number(e.target.value))}
+          onChange={e => setYear(Number(e.target.value))}
         >
           <MenuItem value={2023}>2023</MenuItem>
-          <MenuItem value={2024} disabled={day > 4}>
+          <MenuItem value={2024} disabled={day > 6}>
             2024
           </MenuItem>
         </Select>
         <Select
           label="Day"
           value={day}
-          onChange={(e) => setDay(Number(e.target.value))}
+          onChange={e => setDay(Number(e.target.value))}
         >
           {Array.from({ length: 24 }, (_, i) => (
             <MenuItem
               key={i + 1}
               value={i + 1}
-              disabled={(year === 2024 && i > 3) || i > 19}
+              disabled={(year === 2024 && i > 5) || i > 19}
             >
               {i + 1}
             </MenuItem>
@@ -71,7 +71,7 @@ export function Welcome() {
         multiline
         rows={10}
         value={inputString}
-        onChange={(e) => setInputString(e.target.value)}
+        onChange={e => setInputString(e.target.value)}
         sx={{ width: "100%" }}
       />
       <Button onClick={handleClick} variant="contained" sx={{ margin: 1 }}>
