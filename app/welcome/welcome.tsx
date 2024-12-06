@@ -18,7 +18,11 @@ export function Welcome() {
   const [year, setYear] = useState(2024);
   const [day, setDay] = useState(1);
 
-  const { doTheThing, doTheThingPart2 } = useDoTheThing(inputString, year, day);
+  const { doTheThing, doTheThingPart2, visualization } = useDoTheThing(
+    inputString,
+    year,
+    day
+  );
 
   const handleClick = () => {
     if (part2) {
@@ -81,6 +85,7 @@ export function Welcome() {
       <Box>
         <h4 style={{ marginTop: 5 }}>Output: {output}</h4>
       </Box>
+      <Box>{visualization && visualization()}</Box>
     </Box>
   );
 }

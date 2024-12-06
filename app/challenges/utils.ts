@@ -9,10 +9,15 @@ export const useDoTheThing = (
   inputString: string,
   year: number,
   day: number
-) => {
+): {
+  doTheThing: () => number;
+  doTheThingPart2: () => number;
+  visualization?: () => JSX.Element | null;
+} => {
   const fallback = {
     doTheThing: () => 0,
     doTheThingPart2: () => 0,
+    visualization: () => null,
   };
   switch (year) {
     case 2024:
