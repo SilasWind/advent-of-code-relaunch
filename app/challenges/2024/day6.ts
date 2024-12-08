@@ -10,7 +10,7 @@ export default function DaySix(inputString: string) {
     let result: number[][] = [];
     const possiblePositions = moveGuard() as number[][];
     possiblePositions.forEach(([x, y], index) => {
-      console.log(index);
+      console.log(`${index + 1}/${possiblePositions.length}`);
 
       if (_formattedInput[x][y] === ".") {
         let newInput = lodashCloneDeep(_formattedInput);
@@ -52,7 +52,14 @@ export default function DaySix(inputString: string) {
         loop = true;
         break;
       }
-      if (!result.some(([x, y]) => x === pos[0] && y === pos[1])) {
+      if (!part2 && !result.some(([x, y]) => x === pos[0] && y === pos[1])) {
+        result.push(pos);
+      } else if (
+        part2 &&
+        !result.some(
+          ([x, y, z]) => x === pos[0] && y === pos[1] && z === pos[2]
+        )
+      ) {
         result.push(pos);
       }
       if (direction === 0) {

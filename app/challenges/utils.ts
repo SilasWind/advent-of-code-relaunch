@@ -4,6 +4,8 @@ import DayThree from "./2024/day3";
 import DayFour from "./2024/day4";
 import DayFive from "./2024/day5";
 import DaySix from "./2024/day6";
+import DaySeven from "./2024/day7";
+import DayEight from "./2024/day8";
 
 export const useDoTheThing = (
   inputString: string,
@@ -34,6 +36,10 @@ export const useDoTheThing = (
           return DayFive(inputString);
         case 6:
           return DaySix(inputString);
+        case 7:
+          return DaySeven(inputString);
+        case 8:
+          return DayEight(inputString);
         default:
           return fallback;
       }
