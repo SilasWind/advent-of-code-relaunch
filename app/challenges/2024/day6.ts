@@ -31,6 +31,7 @@ export default function DaySix(inputString: string) {
   ) {
     const result: number[][] = [];
     let pos = [0, 0, 0];
+    const visited = new Set<string>(); // Track visited positions and directions
     for (let i = 0; i < formattedInput.length; i++) {
       const index = formattedInput[i].findIndex(e => e !== "." && e !== "#");
       if (index !== -1) {
@@ -45,22 +46,21 @@ export default function DaySix(inputString: string) {
     let done = false;
     let loop = false;
     while (!done) {
-      if (
-        part2 &&
-        result.some(([x, y, z]) => x === pos[0] && y === pos[1] && z === pos[2])
-      ) {
+      const posKey = `${pos[0]},${pos[1]},${pos[2]}`;
+      if (part2 && visited.has(posKey)) {
         loop = true;
         break;
       }
+      visited.add(posKey);
       if (!part2 && !result.some(([x, y]) => x === pos[0] && y === pos[1])) {
-        result.push(pos);
+        result.push([...pos]);
       } else if (
         part2 &&
         !result.some(
           ([x, y, z]) => x === pos[0] && y === pos[1] && z === pos[2]
         )
       ) {
-        result.push(pos);
+        result.push([...pos]);
       }
       if (direction === 0) {
         if (pos[0] === 0) {
