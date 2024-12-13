@@ -47,7 +47,7 @@ export function Welcome() {
           onChange={e => setYear(Number(e.target.value))}
         >
           <MenuItem value={2023}>2023</MenuItem>
-          <MenuItem value={2024} disabled={day > 8}>
+          <MenuItem value={2024} disabled={day > 9}>
             2024
           </MenuItem>
         </Select>
@@ -60,7 +60,7 @@ export function Welcome() {
             <MenuItem
               key={i + 1}
               value={i + 1}
-              disabled={(year === 2024 && i > 7) || i > 19}
+              disabled={(year === 2024 && i > 8) || i > 19}
             >
               {i + 1}
             </MenuItem>
